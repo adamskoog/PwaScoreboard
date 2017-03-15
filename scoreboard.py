@@ -1,4 +1,4 @@
-import pygame
+)import pygame
 
 # Initialize the game engine
 pygame.init()
@@ -9,7 +9,7 @@ CAPTION = "PWA Ping Pong Scoreboard"
 TARGET_SCORE = 15
 
 # Create the game window
-size = (300, 300
+size = (300, 300)
 
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption(CAPTION)
