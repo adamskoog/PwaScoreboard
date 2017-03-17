@@ -40,3 +40,21 @@ def AAfilledRoundedRect(surface,rect,color,radius=0.4):
     rectangle.fill((255,255,255,alpha),special_flags=BLEND_RGBA_MIN)
 
     return surface.blit(rectangle,pos)
+
+def ScoreboardHighlightVertical(screen, x, y, w, h, color): 
+    p1 = (x+(w/2),y)
+    p2 = (x+w,y+(h/7))
+    p3 = (x+w,y+h-(h/7))
+    p4 = (x+(w/2),y+h)
+    p5 = (x,y+h-(h/7))
+    p6 = (x,y+(h/7))
+    draw.polygon(screen, color, [p1,p2,p3,p4,p5,p6])
+    
+def ScoreboardHighlightHorizontal(screen, x, y, w, h, color): 
+    p1 = (x,y+(h/2))
+    p2 = (x+(w/7),y)
+    p3 = (x+w-(w/7),y)
+    p4 = (x+w,y+(h/2))
+    p5 = (x+w-(w/7),y+h)
+    p6 = (x+(w/7),y+h)
+    draw.polygon(screen, color, [p1,p2,p3,p4,p5,p6]) 

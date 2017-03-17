@@ -47,7 +47,8 @@ class Scoreboard():
     def Draw(self, screen):
         GREY = (64,64,64)
         WHITE = (255,255,255)    
-        BLACK = (0,0,0) 
+        BLACK = (0,0,0)
+        
         
         screenWidth, screenHeight = screen.get_size()
     
@@ -69,8 +70,34 @@ class Scoreboard():
         height = screenHeight * 0.45
         width = screenWidth * 0.4
         
-        # draw left background
+        # draw left side
+        leftRectX = sideBuffer + screenOffset
+        leftRectY = topBuffer + screenOffset
         pygame.draw.rect(screen, BLACK, (sideBuffer + screenOffset, topBuffer + screenOffset, width, height))
+
+        self.drawHighlights(screen, leftRectX+1, leftRectY+1, (width/2)-1, height-2)
+        self.drawHighlights(screen, leftRectX+(width/2)+1, leftRectY+1, (width/2)-1, height-2)
+
+        # draw right side
+        rightRectX = screenWidth + screenOffset - sideBuffer - width
+        rightRectY = topBuffer + screenOffset
+        pygame.draw.rect(screen, BLACK, (rightRectX, rightRectY, width, height))
+        
+        self.drawHighlights(screen, rightRectX+1, rightRectY+1, (width/2)-1, height-2)
+        self.drawHighlights(screen, rightRectX+(width/2)+1, rightRectY+1, (width/2)-1, height-2)
     
-        # draw right background
-        pygame.draw.rect(screen, BLACK, (screenWidth + screenOffset - sideBuffer - width, topBuffer + screenOffset, width, height))
+    def drawHighlights(self, screen, x, y, w, h):
+        ORANGE = (255,126,2)
+        
+        #left side
+        shapes.ScoreboardHighlightVertical(screen, x, y, w/5, h/2, ORANGE)
+        shapes.ScoreboardHighlightVertical(screen, x, y+h/2, w/5, h/2, ORANGE)
+        
+        #right side
+        shapes.ScoreboardHighlightVertical(screen, x+w-(w/5), y, w/5, h/2, ORANGE)
+        shapes.ScoreboardHighlightVertical(screen, x+w-(w/5), y+h/2, w/5, h/2, ORANGE)
+        
+        shapes.ScoreboardHighlightHorizontal(screen, x, y, h/2, w/5, ORANGE)
+        shapes.ScoreboardHighlightHorizontal(screen, x, y+h/2, h/2, w/5, ORANGE)
+        shapes.ScoreboardHighlightHorizontal(screen, x, y+h, h/2, w/5, ORANGE)
+ 
