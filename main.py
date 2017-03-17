@@ -1,18 +1,17 @@
-import pygame, pygame.gfxdraw
+import pygame
 import scoreboard as sb
 
 # Initialize the game engine
 pygame.init()
 
 # Define static variables
-SCREEN_WIDTH = 300
-SCREEN_HEIGHT = 225
+SCREEN_WIDTH = 640
+SCREEN_HEIGHT = 480
 GAME_FPS = 60
 CAPTION = "PWA Ping Pong Scoreboard"
 TARGET_SCORE = 15
 
-WHITE = (255,255,255)    
-BLACK = (0,0,0) 
+BACKGROUND = (64,64,64)
 
 # Create the game window
 size = (SCREEN_WIDTH, SCREEN_HEIGHT)   #test with 4:3 aspect ratio
@@ -25,23 +24,6 @@ quitGame = False
 
 # get clock to manage screen update speed
 clock = pygame.time.Clock()
-
-# Testing Graphics
-def drawScoreboard(screen):
-    global BLACK
-
-    screenWidth, screenHeight = screen.get_size()
-
-    topBuffer = (screenHeight * 0.3) / 2
-    sideBuffer = (screenWidth * 0.1) / 2
-    height = screenHeight * 0.45
-    width = screenWidth * 0.4
-
-    # draw left background
-    pygame.draw.rect(screen, BLACK, (sideBuffer, topBuffer, width, height))
-
-    # draw right background
-    pygame.draw.rect(screen, BLACK, (300 - sideBuffer - width, topBuffer, width, height))
 
 #--------- Main Loop ----------
 while not quitGame:
@@ -57,13 +39,13 @@ while not quitGame:
             elif event.key == pygame.K_RIGHT:
                 scoreboard.AddRightScore()
 
-    # Game Logic        
+    # Game Logic
     gameOver = scoreboard.CheckScore()
 
     # Repaint Screen
-    screen.fill(WHITE)
+    screen.fill(BACKGROUND)
 
-    drawScoreboard(screen)
+    scoreboard.Draw(screen)
     
     pygame.display.flip()
     
