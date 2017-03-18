@@ -39,158 +39,228 @@ def drawNumberZero(screen, x, y, w, h):
     ORANGE  = (255,126,2)
     BLACK   = (0,0,0)
     
+    pad = h * 0.05 #padding
+    
+    x += pad
+    y += pad
+    w -= pad*4
+    h -= pad*2
+    
     #left side
     shapes.ScoreboardHighlightVertical(screen, x, y, w/5, h/2, ORANGE)
     shapes.ScoreboardHighlightVertical(screen, x, y+h/2, w/5, h/2, ORANGE)
     
     #right side
-    shapes.ScoreboardHighlightVertical(screen, x+w-(w/5), y, w/5, h/2, ORANGE)
-    shapes.ScoreboardHighlightVertical(screen, x+w-(w/5), y+h/2, w/5, h/2, ORANGE)
+    shapes.ScoreboardHighlightVertical(screen, x+w+(pad*2)-(w/5), y, w/5, h/2, ORANGE)
+    shapes.ScoreboardHighlightVertical(screen, x+w+(pad*2)-(w/5), y+h/2, w/5, h/2, ORANGE)
     
-    shapes.ScoreboardHighlightHorizontal(screen, x, y, h/2, w/5, ORANGE)
-    shapes.ScoreboardHighlightHorizontal(screen, x, y+h/2, h/2, w/5, BLACK)
-    shapes.ScoreboardHighlightHorizontal(screen, x, y+h, h/2, w/5, ORANGE)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, y-pad, (h-pad)/2, w/5, ORANGE)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, (y-pad)+h/2, (h-pad)/2, w/5, BLACK)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, (y-pad)+h, (h-pad)/2, w/5, ORANGE)
     
 def drawNumberOne(screen, x, y, w, h):
     ORANGE  = (255,126,2)
     BLACK   = (0,0,0)
     
+    pad = h * 0.05 #padding
+    
+    x += pad
+    y += pad
+    w -= pad*4
+    h -= pad*2
+    
     #left side
     shapes.ScoreboardHighlightVertical(screen, x, y, w/5, h/2, BLACK)
     shapes.ScoreboardHighlightVertical(screen, x, y+h/2, w/5, h/2, BLACK)
     
     #right side
-    shapes.ScoreboardHighlightVertical(screen, x+w-(w/5), y, w/5, h/2, ORANGE)
-    shapes.ScoreboardHighlightVertical(screen, x+w-(w/5), y+h/2, w/5, h/2, ORANGE)
+    shapes.ScoreboardHighlightVertical(screen, x+w+(pad*2)-(w/5), y, w/5, h/2, ORANGE)
+    shapes.ScoreboardHighlightVertical(screen, x+w+(pad*2)-(w/5), y+h/2, w/5, h/2, ORANGE)
     
-    shapes.ScoreboardHighlightHorizontal(screen, x, y, h/2, w/5, BLACK)
-    shapes.ScoreboardHighlightHorizontal(screen, x, y+h/2, h/2, w/5, BLACK)
-    shapes.ScoreboardHighlightHorizontal(screen, x, y+h, h/2, w/5, BLACK)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, y-pad, (h-pad)/2, w/5, BLACK)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, (y-pad)+h/2, (h-pad)/2, w/5, BLACK)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, (y-pad)+h, (h-pad)/2, w/5, BLACK)
     
 def drawNumberTwo(screen, x, y, w, h):
     ORANGE  = (255,126,2)
     BLACK   = (0,0,0)
+
+    pad = h * 0.05 #padding
+    
+    x += pad
+    y += pad
+    w -= pad*4
+    h -= pad*2
     
     #left side
     shapes.ScoreboardHighlightVertical(screen, x, y, w/5, h/2, BLACK)
     shapes.ScoreboardHighlightVertical(screen, x, y+h/2, w/5, h/2, ORANGE)
     
     #right side
-    shapes.ScoreboardHighlightVertical(screen, x+w-(w/5), y, w/5, h/2, ORANGE)
-    shapes.ScoreboardHighlightVertical(screen, x+w-(w/5), y+h/2, w/5, h/2, BLACK)
+    shapes.ScoreboardHighlightVertical(screen, x+w+(pad*2)-(w/5), y, w/5, h/2, ORANGE)
+    shapes.ScoreboardHighlightVertical(screen, x+w+(pad*2)-(w/5), y+h/2, w/5, h/2, BLACK)
     
-    shapes.ScoreboardHighlightHorizontal(screen, x, y, h/2, w/5, ORANGE)
-    shapes.ScoreboardHighlightHorizontal(screen, x, y+h/2, h/2, w/5, ORANGE)
-    shapes.ScoreboardHighlightHorizontal(screen, x, y+h, h/2, w/5, ORANGE)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, y-pad, (h-pad)/2, w/5, ORANGE)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, (y-pad)+h/2, (h-pad)/2, w/5, ORANGE)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, (y-pad)+h, (h-pad)/2, w/5, ORANGE)
     
 def drawNumberThree(screen, x, y, w, h):
     ORANGE  = (255,126,2)
     BLACK   = (0,0,0)
     
+    pad = h * 0.05 #padding
+    
+    x += pad
+    y += pad
+    w -= pad*4
+    h -= pad*2
+    
     #left side
     shapes.ScoreboardHighlightVertical(screen, x, y, w/5, h/2, BLACK)
     shapes.ScoreboardHighlightVertical(screen, x, y+h/2, w/5, h/2, BLACK)
     
     #right side
-    shapes.ScoreboardHighlightVertical(screen, x+w-(w/5), y, w/5, h/2, ORANGE)
-    shapes.ScoreboardHighlightVertical(screen, x+w-(w/5), y+h/2, w/5, h/2, ORANGE)
+    shapes.ScoreboardHighlightVertical(screen, x+w+(pad*2)-(w/5), y, w/5, h/2, ORANGE)
+    shapes.ScoreboardHighlightVertical(screen, x+w+(pad*2)-(w/5), y+h/2, w/5, h/2, ORANGE)
     
-    shapes.ScoreboardHighlightHorizontal(screen, x, y, h/2, w/5, ORANGE)
-    shapes.ScoreboardHighlightHorizontal(screen, x, y+h/2, h/2, w/5, ORANGE)
-    shapes.ScoreboardHighlightHorizontal(screen, x, y+h, h/2, w/5, ORANGE)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, y-pad, (h-pad)/2, w/5, ORANGE)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, (y-pad)+h/2, (h-pad)/2, w/5, ORANGE)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, (y-pad)+h, (h-pad)/2, w/5, ORANGE)
     
 def drawNumberFour(screen, x, y, w, h):
     ORANGE  = (255,126,2)
     BLACK   = (0,0,0)
     
+    pad = h * 0.05 #padding
+    
+    x += pad
+    y += pad
+    w -= pad*4
+    h -= pad*2
+    
     #left side
     shapes.ScoreboardHighlightVertical(screen, x, y, w/5, h/2, ORANGE)
     shapes.ScoreboardHighlightVertical(screen, x, y+h/2, w/5, h/2, BLACK)
     
     #right side
-    shapes.ScoreboardHighlightVertical(screen, x+w-(w/5), y, w/5, h/2, ORANGE)
-    shapes.ScoreboardHighlightVertical(screen, x+w-(w/5), y+h/2, w/5, h/2, ORANGE)
+    shapes.ScoreboardHighlightVertical(screen, x+w+(pad*2)-(w/5), y, w/5, h/2, ORANGE)
+    shapes.ScoreboardHighlightVertical(screen, x+w+(pad*2)-(w/5), y+h/2, w/5, h/2, ORANGE)
     
-    shapes.ScoreboardHighlightHorizontal(screen, x, y, h/2, w/5, BLACK)
-    shapes.ScoreboardHighlightHorizontal(screen, x, y+h/2, h/2, w/5, ORANGE)
-    shapes.ScoreboardHighlightHorizontal(screen, x, y+h, h/2, w/5, BLACK)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, y-pad, (h-pad)/2, w/5, BLACK)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, (y-pad)+h/2, (h-pad)/2, w/5, ORANGE)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, (y-pad)+h, (h-pad)/2, w/5, BLACK)
     
 def drawNumberFive(screen, x, y, w, h):
     ORANGE  = (255,126,2)
     BLACK   = (0,0,0)
     
+    pad = h * 0.05 #padding
+    
+    x += pad
+    y += pad
+    w -= pad*4
+    h -= pad*2
+    
     #left side
     shapes.ScoreboardHighlightVertical(screen, x, y, w/5, h/2, ORANGE)
     shapes.ScoreboardHighlightVertical(screen, x, y+h/2, w/5, h/2, BLACK)
     
     #right side
-    shapes.ScoreboardHighlightVertical(screen, x+w-(w/5), y, w/5, h/2, BLACK)
-    shapes.ScoreboardHighlightVertical(screen, x+w-(w/5), y+h/2, w/5, h/2, ORANGE)
+    shapes.ScoreboardHighlightVertical(screen, x+w+(pad*2)-(w/5), y, w/5, h/2, BLACK)
+    shapes.ScoreboardHighlightVertical(screen, x+w+(pad*2)-(w/5), y+h/2, w/5, h/2, ORANGE)
     
-    shapes.ScoreboardHighlightHorizontal(screen, x, y, h/2, w/5, ORANGE)
-    shapes.ScoreboardHighlightHorizontal(screen, x, y+h/2, h/2, w/5, ORANGE)
-    shapes.ScoreboardHighlightHorizontal(screen, x, y+h, h/2, w/5, ORANGE)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, y-pad, (h-pad)/2, w/5, ORANGE)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, (y-pad)+h/2, (h-pad)/2, w/5, ORANGE)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, (y-pad)+h, (h-pad)/2, w/5, ORANGE)
     
 def drawNumberSix(screen, x, y, w, h):
     ORANGE  = (255,126,2)
     BLACK   = (0,0,0)
+
+    pad = h * 0.05 #padding
+    
+    x += pad
+    y += pad
+    w -= pad*4
+    h -= pad*2
     
     #left side
     shapes.ScoreboardHighlightVertical(screen, x, y, w/5, h/2, ORANGE)
     shapes.ScoreboardHighlightVertical(screen, x, y+h/2, w/5, h/2, ORANGE)
     
     #right side
-    shapes.ScoreboardHighlightVertical(screen, x+w-(w/5), y, w/5, h/2, BLACK)
-    shapes.ScoreboardHighlightVertical(screen, x+w-(w/5), y+h/2, w/5, h/2, ORANGE)
+    shapes.ScoreboardHighlightVertical(screen, x+w+(pad*2)-(w/5), y, w/5, h/2, BLACK)
+    shapes.ScoreboardHighlightVertical(screen, x+w+(pad*2)-(w/5), y+h/2, w/5, h/2, ORANGE)
     
-    shapes.ScoreboardHighlightHorizontal(screen, x, y, h/2, w/5, ORANGE)
-    shapes.ScoreboardHighlightHorizontal(screen, x, y+h/2, h/2, w/5, ORANGE)
-    shapes.ScoreboardHighlightHorizontal(screen, x, y+h, h/2, w/5, ORANGE)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, y-pad, (h-pad)/2, w/5, ORANGE)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, (y-pad)+h/2, (h-pad)/2, w/5, ORANGE)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, (y-pad)+h, (h-pad)/2, w/5, ORANGE)
     
 def drawNumberSeven(screen, x, y, w, h):
     ORANGE  = (255,126,2)
     BLACK   = (0,0,0)
+    
+    pad = h * 0.05 #padding
+    
+    x += pad
+    y += pad
+    w -= pad*4
+    h -= pad*2
     
     #left side
     shapes.ScoreboardHighlightVertical(screen, x, y, w/5, h/2, BLACK)
     shapes.ScoreboardHighlightVertical(screen, x, y+h/2, w/5, h/2, BLACK)
     
     #right side
-    shapes.ScoreboardHighlightVertical(screen, x+w-(w/5), y, w/5, h/2, ORANGE)
-    shapes.ScoreboardHighlightVertical(screen, x+w-(w/5), y+h/2, w/5, h/2, ORANGE)
+    shapes.ScoreboardHighlightVertical(screen, x+w+(pad*2)-(w/5), y, w/5, h/2, ORANGE)
+    shapes.ScoreboardHighlightVertical(screen, x+w+(pad*2)-(w/5), y+h/2, w/5, h/2, ORANGE)
     
-    shapes.ScoreboardHighlightHorizontal(screen, x, y, h/2, w/5, ORANGE)
-    shapes.ScoreboardHighlightHorizontal(screen, x, y+h/2, h/2, w/5, BLACK)
-    shapes.ScoreboardHighlightHorizontal(screen, x, y+h, h/2, w/5, BLACK)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, y-pad, (h-pad)/2, w/5, ORANGE)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, (y-pad)+h/2, (h-pad)/2, w/5, BLACK)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, (y-pad)+h, (h-pad)/2, w/5, BLACK)
     
 def drawNumberEight(screen, x, y, w, h):
     ORANGE  = (255,126,2)
     BLACK   = (0,0,0)
+
+    pad = h * 0.05 #padding
+    
+    x += pad
+    y += pad
+    w -= pad*4
+    h -= pad*2
     
     #left side
     shapes.ScoreboardHighlightVertical(screen, x, y, w/5, h/2, ORANGE)
     shapes.ScoreboardHighlightVertical(screen, x, y+h/2, w/5, h/2, ORANGE)
     
     #right side
-    shapes.ScoreboardHighlightVertical(screen, x+w-(w/5), y, w/5, h/2, ORANGE)
-    shapes.ScoreboardHighlightVertical(screen, x+w-(w/5), y+h/2, w/5, h/2, ORANGE)
+    shapes.ScoreboardHighlightVertical(screen, x+w+(pad*2)-(w/5), y, w/5, h/2, ORANGE)
+    shapes.ScoreboardHighlightVertical(screen, x+w+(pad*2)-(w/5), y+h/2, w/5, h/2, ORANGE)
     
-    shapes.ScoreboardHighlightHorizontal(screen, x, y, h/2, w/5, ORANGE)
-    shapes.ScoreboardHighlightHorizontal(screen, x, y+h/2, h/2, w/5, ORANGE)
-    shapes.ScoreboardHighlightHorizontal(screen, x, y+h, h/2, w/5, ORANGE)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, y-pad, (h-pad)/2, w/5, ORANGE)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, (y-pad)+h/2, (h-pad)/2, w/5, ORANGE)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, (y-pad)+h, (h-pad)/2, w/5, ORANGE)
     
 def drawNumberNine(screen, x, y, w, h):
     ORANGE  = (255,126,2)
     BLACK   = (0,0,0)
+
+    pad = h * 0.05 #padding
+    
+    x += pad
+    y += pad
+    w -= pad*4
+    h -= pad*2
     
     #left side
     shapes.ScoreboardHighlightVertical(screen, x, y, w/5, h/2, ORANGE)
     shapes.ScoreboardHighlightVertical(screen, x, y+h/2, w/5, h/2, BLACK)
     
     #right side
-    shapes.ScoreboardHighlightVertical(screen, x+w-(w/5), y, w/5, h/2, ORANGE)
-    shapes.ScoreboardHighlightVertical(screen, x+w-(w/5), y+h/2, w/5, h/2, ORANGE)
+    shapes.ScoreboardHighlightVertical(screen, x+w+(pad*2)-(w/5), y, w/5, h/2, ORANGE)
+    shapes.ScoreboardHighlightVertical(screen, x+w+(pad*2)-(w/5), y+h/2, w/5, h/2, ORANGE)
     
-    shapes.ScoreboardHighlightHorizontal(screen, x, y, h/2, w/5, ORANGE)
-    shapes.ScoreboardHighlightHorizontal(screen, x, y+h/2, h/2, w/5, ORANGE)
-    shapes.ScoreboardHighlightHorizontal(screen, x, y+h, h/2, w/5, ORANGE)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, y-pad, (h-pad)/2, w/5, ORANGE)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, (y-pad)+h/2, (h-pad)/2, w/5, ORANGE)
+    shapes.ScoreboardHighlightHorizontal(screen, x+pad, (y-pad)+h, (h-pad)/2, w/5, ORANGE)

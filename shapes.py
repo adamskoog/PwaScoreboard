@@ -41,7 +41,7 @@ def AAfilledRoundedRect(surface,rect,color,radius=0.4):
 
     return surface.blit(rectangle,pos)
 
-def ScoreboardHighlightVertical(screen, x, y, w, h, color): 
+def ScoreboardHighlightVertical(screen, x, y, w, h, color):
     p1 = (x+(w/2),y)
     p2 = (x+w,y+(h/7))
     p3 = (x+w,y+h-(h/7))
@@ -50,7 +50,7 @@ def ScoreboardHighlightVertical(screen, x, y, w, h, color):
     p6 = (x,y+(h/7))
     draw.polygon(screen, color, [p1,p2,p3,p4,p5,p6])
     
-def ScoreboardHighlightHorizontal(screen, x, y, w, h, color): 
+def ScoreboardHighlightHorizontal(screen, x, y, w, h, color):
     p1 = (x,y+(h/2))
     p2 = (x+(w/7),y)
     p3 = (x+w-(w/7),y)
