@@ -6,7 +6,7 @@ class Scoreboard():
         self.RightScore = 0
         self.GameOver = False
         self.TargerScore = targetScore
-        
+
     def AddLeftScore(self):
         if not self.GameOver:
             self.LeftScore += 1
@@ -39,7 +39,8 @@ class Scoreboard():
             self.GameOver = True
             return True
         else:
-            print(str(self.LeftScore) + " - " + str(self.RightScore))
+            pass
+            # print(str(self.LeftScore) + " - " + str(self.RightScore))
         
         # Game is not over.
         return False
@@ -50,15 +51,19 @@ class Scoreboard():
         self.GameOver = False
         print("NEW GAME")
         
-    def Draw(self, screen):
+    def Draw(self):
         GREY = (64,64,64)
         WHITE = (255,255,255)    
         BLACK = (0,0,0)      
-        
+
+        screen = pygame.display.get_surface()  
         screenWidth, screenHeight = screen.get_size()
     
         outerBorderWidth = screenWidth * 0.022
         innerBorderWidth = screenWidth * 0.038
+
+        # Fill the background
+        screen.fill(GREY)
         
         # Draw rounded rectange for border
         shapes.AAfilledRoundedRect(screen,(outerBorderWidth,outerBorderWidth,screenWidth-(outerBorderWidth*2),screenHeight-(outerBorderWidth*2)),WHITE,0.1)
@@ -88,3 +93,5 @@ class Scoreboard():
         pygame.draw.rect(screen, BLACK, (rightRectX, rightRectY, width, height))
         
         scoring.drawNumber(self.RightScore, screen, rightRectX, rightRectY, width, height)
+
+        pygame.display.flip()
