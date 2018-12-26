@@ -1,4 +1,4 @@
-from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler, HTTPServer
 
 class H(BaseHTTPRequestHandler):
     scoreboard = None
@@ -32,7 +32,7 @@ class H(BaseHTTPRequestHandler):
         self.wfile.write("OK")
  
 def run(scoreboard):
-    print scoreboard
+    print(scoreboard)
     H.scoreboard = scoreboard
     httpd = HTTPServer(('', 80), H)
     httpd.serve_forever()
