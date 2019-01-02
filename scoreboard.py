@@ -75,7 +75,7 @@ class Scoreboard():
         screenWidth -= innerBorderWidth
         screenHeight -= innerBorderWidth
         
-        topBuffer = (screenHeight * 0.3) / 2
+        topBuffer = (screenHeight * 0.5) / 2
         sideBuffer = (screenWidth * 0.08) / 2
         height = screenHeight * 0.45
         width = screenWidth * 0.4
