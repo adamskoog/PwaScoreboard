@@ -1,85 +1,43 @@
-import pygame
+import sys, pygame, argparse, _thread
 import scoreboard as sb
 import pyscope as ps
-import server
-import sys
-import _thread
+import server, rasppi
 
+parser = argparse.ArgumentParser(description="PWA Ping Pong Scoreboard")
+parser.add_argument("--fps", help="Override the default game FPS: 5", type=int, default=5)
+parser.add_argument("-p", "--probe", help="For use on Raspberry PI, probes system for GPU.", action="store_true")
+parser.add_argument("-s", "--http-server", help="Enable use of http server.", action="store_true", default=False)
+parser.add_argument("--http-port", help="Override the default http port: 1337", type=int, default=1337)
 
-IsPI = False
-try:
-    import RPi.GPIO as GPIO
-    import sound
-    IsPI = True
-except:
-    pass
+args = parser.parse_args()
+args.caption = "PWA Ping Pong Scoreboard"
+args.target_score = 15
+args.screen_width = 640
+args.screen_height = 480
 
-# Define static variables
-SCREEN_WIDTH = 640
-SCREEN_HEIGHT = 480
-GAME_FPS = 5
-CAPTION = "PWA Ping Pong Scoreboard"
-TARGET_SCORE = 15
-HTTP_PORT = 1337
-
-# Try to run directly on a framebuffer (used on PI)
-if "--probe" in sys.argv:
+if args.probe:
+    # Try to run directly on a framebuffer (PI)
     screen = ps.probe()
 else:
-    # Initialize the game engine
+    # Initialize the game engine in windowed mode (Windows)
     pygame.init()
-    screen = pygame.display.set_mode((640, 480))
+    screen = pygame.display.set_mode((args.screen_width, args.screen_height))
+    pygame.display.set_caption(args.caption)
 
-if "--disableweb" in sys.argv:
-    HTTP_PORT = None
-
-def button_callback(channel):
-    if channel == BUTTON_P1:
-        event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_LEFT)
-    if channel == BUTTON_P2:
-        event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_RIGHT)
-    if channel == BUTTON_RESET:
-        event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_DOWN)
-
-    pygame.event.post(event)
-
-if IsPI:
-    # SETUP GPIO PORTS
-    BUTTON_P1 = 12
-    BUTTON_RESET = 20
-    BUTTON_P2 = 16
-    BUZZER = 21
-
-    GPIO.setwarnings(False)
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(BUTTON_RESET, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    GPIO.setup(BUTTON_P1, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    GPIO.setup(BUTTON_P2, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    GPIO.setup(BUZZER, GPIO.OUT)
-    GPIO.add_event_detect(BUTTON_P1, GPIO.FALLING, callback=button_callback, bouncetime=1000)
-    GPIO.add_event_detect(BUTTON_P2, GPIO.FALLING, callback=button_callback, bouncetime=1000)
-    GPIO.add_event_detect(BUTTON_RESET, GPIO.FALLING, callback=button_callback, bouncetime=1000)
-
-# Create the game window
-size = (SCREEN_WIDTH, SCREEN_HEIGHT)   #test with 4:3 aspect ratio
-pygame.display.set_caption(CAPTION)
-
-# Create the sound object
-if IsPI:
-    sound = sound.Sound(BUZZER)
+# Initialize raspberry pi functions if available.
+rasppi_gpio = rasppi.RaspPi(pygame)
 
 # Create the scoreboard object.
-scoreboard = sb.Scoreboard(TARGET_SCORE)
+scoreboard = sb.Scoreboard(args, rasppi_gpio)
 quitGame = False
 
 # get clock to manage screen update speed
 clock = pygame.time.Clock()
 
 # Stand up a small HTTP server for remote control
-_thread.start_new_thread(server.run, (scoreboard,HTTP_PORT))
+_thread.start_new_thread(server.run, (scoreboard,args))
 
 #--------- Main Loop ----------
-playedWinnerSound = False
 while not quitGame:
     # Event Loop
     for event in pygame.event.get():
@@ -88,16 +46,10 @@ while not quitGame:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_DOWN:
                 scoreboard.Reset()
-                if IsPI:
-                    sound.Reset()
             elif event.key == pygame.K_LEFT:
                 scoreboard.AddLeftScore()
-                if IsPI:
-                    sound.LeftScore()
             elif event.key == pygame.K_RIGHT:
                 scoreboard.AddRightScore()
-                if IsPI:
-                    sound.RightScore()
             elif event.key == pygame.K_q:
                 quitGame = True
 
@@ -107,17 +59,7 @@ while not quitGame:
     # Game Logic
     gameOver = scoreboard.CheckScore()
 
-    # Play winner sound if game is over
-    if gameOver and not playedWinnerSound:
-        if IsPI:
-            sound.Winner()
-        playedWinnerSound = True
-
-    # Reset check for playing winning sound only once
-    if not gameOver and playedWinnerSound:
-        playedWinnerSound = False
-
     # set speed fps
-    clock.tick(GAME_FPS)
+    clock.tick(args.fps)
 
 pygame.quit()

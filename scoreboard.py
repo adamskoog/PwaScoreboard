@@ -1,27 +1,34 @@
 import pygame, shapes, scoring
 
 class Scoreboard():
-    def __init__(self, targetScore):
+    def __init__(self, args, pi):
+        self.pi = pi
+
         self.LeftScore = 0
         self.RightScore = 0
         self.GameOver = False
-        self.TargerScore = targetScore
+        self.TargerScore = args.target_score
+        self.PlayedWinnerSound = False
 
     def AddLeftScore(self):
         if not self.GameOver:
             self.LeftScore += 1
+            self.pi.sound.LeftScore()
         
     def AddRightScore(self):
         if not self.GameOver:
             self.RightScore += 1
+            self.pi.sound.RightScore()
         
     def SubtractLeftScore(self):
         if not self.GameOver and self.LeftScore > 0:
             self.LeftScore -= 1
+            self.pi.sound.LeftScore()
             
     def SubtractRightScore(self):
         if not self.GameOver and self.RightScore > 0:
             self.RightScore -= 1
+            self.pi.sound.RightScore()
              
     def CheckScore(self):
         if (self.LeftScore == self.RightScore) and (self.RightScore >= self.TargerScore - 1):
@@ -33,10 +40,22 @@ class Scoreboard():
         elif (self.LeftScore >= self.TargerScore) and (self.LeftScore >= (self.RightScore + 2)):
             print("NORTH WINS")
             self.GameOver = True
+
+            # Play winner sound if game is over
+            if not self.PlayedWinnerSound:
+                self.pi.sound.Winner()
+                self.playedWinnerSound = True
+
             return True
         elif (self.RightScore >= self.TargerScore) and (self.RightScore >= (self.LeftScore + 2)):
             print("SOUTH WINS")
             self.GameOver = True
+
+            # Play winner sound if game is over
+            if not self.PlayedWinnerSound:
+                self.pi.sound.Winner()
+                self.playedWinnerSound = True
+
             return True
         else:
             pass
@@ -49,6 +68,8 @@ class Scoreboard():
         self.LeftScore = 0
         self.RightScore = 0
         self.GameOver = False
+        self.PlayedWinnerSound = False
+        self.pi.sound.Reset()
         print("NEW GAME")
         
     def Draw(self):

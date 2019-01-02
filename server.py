@@ -31,11 +31,11 @@ class H(BaseHTTPRequestHandler):
         self._set_headers()
         self.wfile.write("OK")
  
-def run(scoreboard, port):
+def run(scoreboard, args):
     H.scoreboard = scoreboard
-    if port != None:
-        print("Web Server running on port: {0}".format(port))
-        httpd = HTTPServer(('', port), H)
+    if args.http_server:
+        print("Web Server running on port: {0}".format(args.http_port))
+        httpd = HTTPServer(('', args.http_port), H)
         httpd.serve_forever()
     else:
         print("Web Server not running.")
