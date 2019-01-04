@@ -1,37 +1,65 @@
 import pygame
 
-def run(scoreboard, args):
+class Game:
+    def __init__(self, args):
+        self.args = args
 
-    # get clock to manage screen update speed
-    clock = pygame.time.Clock()
+        self.size = self.width, self.height = args.screen_width, args.screen_height
 
-    while True:
-        # Event Loop
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                return None
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_DOWN:
-                    scoreboard.Reset()
-                elif event.key == pygame.K_LEFT:
-                    scoreboard.AddLeftScore()
-                elif event.key == pygame.K_RIGHT:
-                    scoreboard.AddRightScore()
-                elif event.key == pygame.K_q:
-                    return None
+        # Initialize Game Engine
+        pygame.init()
+
+        # Initialize Game Fonts
+        pygame.font.init()
+
+        if args.probe:
+            # Try to run directly on a framebuffer (PI)
+            self.screen = pyscope.probe()
+        else:
+            # Initialize the game engine in windowed mode (Windows)
+            pygame.init()
+            self.screen = pygame.display.set_mode(self.size)
+            pygame.display.set_caption(args.caption)
+
+        self.running = True
+ 
+    def event(self, event):
+
+        if event.type == pygame.QUIT:
+            self.running = False
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_DOWN:
+                self.scoreboard.Reset()
+            elif event.key == pygame.K_LEFT:
+                self.scoreboard.AddLeftScore()
+            elif event.key == pygame.K_RIGHT:
+                self.scoreboard.AddRightScore()
+            elif event.key == pygame.K_q:
+                self.running = False
         
+    def loop(self):
         # Allow pygame to do internal events and processing with the OS
         pygame.event.pump()
 
-        # Draw Screen
-        scoreboard.Draw()
+    def render(self):
+        self.scoreboard.Draw()
 
-        # Set Speed (fps)
-        clock.tick(args.fps)
+    def cleanup(self):
+        pygame.quit()
+ 
+    def execute(self, scoreboard):
+ 
+        self.scoreboard = scoreboard
 
-def main(_args):
-    import argparse, _thread, server, pyscope
-    import scoreboard as sb
+        while( self.running ):
+            for event in pygame.event.get():
+                self.event(event)
+            self.loop()
+            self.render()
+        self.cleanup()
+
+def parse_arguments(_args):
+    import argparse
 
     parser = argparse.ArgumentParser(description="PWA Ping Pong Scoreboard")
     parser.add_argument("--fps", help="Override the default game FPS: 30", type=int, default=30)
@@ -43,29 +71,24 @@ def main(_args):
     args.caption = "PWA Ping Pong Scoreboard"
     args.target_score = 15
     args.screen_width = 1024
-    args.screen_height = 768
+    args.screen_height = 768 
 
-    if args.probe:
-        # Try to run directly on a framebuffer (PI)
-        screen = pyscope.probe()
-    else:
-        # Initialize the game engine in windowed mode (Windows)
-        pygame.init()
-        screen = pygame.display.set_mode((args.screen_width, args.screen_height))
-        pygame.display.set_caption(args.caption)
+    return args   
 
-    # Initialize Game Fonts
-    pygame.font.init()
+def main(_args):
+    import scoreboard as sb
+    import server, _thread
+
+    args = parse_arguments(_args)
 
     # Create the scoreboard object.
     scoreboard = sb.Scoreboard(args)
 
+    game = Game(args)
+    game.execute(scoreboard)
+
     # Stand up a small HTTP server for remote control
     _thread.start_new_thread(server.run, (scoreboard,args))
-
-    run(scoreboard, args)
-
-    pygame.quit()
 
 if __name__ == "__main__":
     import sys    
