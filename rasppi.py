@@ -1,8 +1,8 @@
-import sound
+import pygame, sound
 
 class RaspPi(object):
     
-    def __init__(self, pygame):
+    def __init__(self):
 
         self.IsPI = False
         try:
@@ -10,9 +10,7 @@ class RaspPi(object):
             self.IsPI = True
         except:
             pass
-            
-        self.pygame = pygame
-        
+       
         # SETUP GPIO PORTS
         self.BUTTON_P1 = 12
         self.BUTTON_RESET = 20
@@ -36,11 +34,11 @@ class RaspPi(object):
 
     def button_callback(self, channel):
         if channel == self.BUTTON_P1:
-            event = self.pygame.event.Event(self.pygame.KEYDOWN, key=self.pygame.K_LEFT)
+            event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_LEFT)
         if channel == self.BUTTON_P2:
-            event = self.pygame.event.Event(self.pygame.KEYDOWN, key=self.pygame.K_RIGHT)
+            event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_RIGHT)
         if channel == self.BUTTON_RESET:
-            event = self.pygame.event.Event(self.pygame.KEYDOWN, key=self.pygame.K_DOWN)
+            event = pygame.event.Event(pygame.KEYDOWN, key=pygame.K_DOWN)
 
-        self.pygame.event.post(event)
+        pygame.event.post(event)
 

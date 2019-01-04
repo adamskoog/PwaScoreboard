@@ -41,6 +41,12 @@ def AAfilledRoundedRect(surface,rect,color,radius=0.4):
 
     return surface.blit(rectangle,pos)
 
+def Text(screen, text, point, color, size=30, font_type="Comic Sans MS"):       
+    text = str(text)
+    myFont = font.SysFont(font_type, size)
+    text = myFont.render(text, True, color)
+    screen.blit(text, point)
+
 def ScoreboardHighlightVertical(screen, x, y, w, h, color):
     p1 = (x+(w/2),y)
     p2 = (x+w,y+(h/7))
