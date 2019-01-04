@@ -19,6 +19,9 @@ def run(scoreboard, args):
                     scoreboard.AddRightScore()
                 elif event.key == pygame.K_q:
                     return None
+        
+        # Allow pygame to do internal events and processing with the OS
+        pygame.event.pump()
 
         # Draw Screen
         scoreboard.Draw()
