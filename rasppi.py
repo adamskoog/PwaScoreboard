@@ -4,10 +4,10 @@ class RaspPi(object):
     
     def __init__(self):
 
-        self.IsPI = False
+        self.GPIO = None
         try:
             import RPi.GPIO as GPIO
-            self.IsPI = True
+            self.GPIO = GPIO
         except:
             pass
        
@@ -17,7 +17,7 @@ class RaspPi(object):
         self.BUTTON_P2 = 16
         self.BUZZER = 21
         
-        if self.IsPI:
+        if self.GPIO != None:
 
             GPIO.setwarnings(False)
             GPIO.setmode(GPIO.BCM)

@@ -3,21 +3,21 @@ import time
 class Sound():
     def __init__(self, buzzerPort):
 
-        self.IsPI = False
+        self.GPIO = None
         try:
             import RPi.GPIO as GPIO
-            self.IsPI = True
+            self.GPIO = GPIO
         except:
             pass
 
         self.BuzzerPort = buzzerPort
 
     def _sound(self, durations):
-        if self.IsPI:           
+        if self.GPIO != None:           
             for i,j in durations:
-                GPIO.output(self.BuzzerPort, GPIO.HIGH)
+                self.GPIO.output(self.BuzzerPort, self.GPIO.HIGH)
                 time.sleep(i)
-                GPIO.output(self.BuzzerPort, GPIO.LOW)
+                self.GPIO.output(self.BuzzerPort, self.GPIO.LOW)
                 time.sleep(j)
 
     def LeftScore(self):
