@@ -1,4 +1,4 @@
-import os
+import os, logging
 import pygame
 
 def probe():
@@ -7,7 +7,7 @@ def probe():
     # http://www.karoltomala.com/blog/?p=679
     disp_no = os.getenv("DISPLAY")
     if disp_no:
-        print("I'm running under X display = {0}".format(disp_no))
+        logging.info("I'm running under X display = {0}".format(disp_no))
         
     # Check which frame buffer drivers are available
     # Start with fbcon since directfb hangs with composite output
@@ -20,7 +20,7 @@ def probe():
         try:
             pygame.display.init()
         except pygame.error:
-            print('Driver: {0} failed.'.format(driver))
+            logging.error('Driver: {0} failed.'.format(driver))
             continue
             
         found = True
@@ -30,7 +30,7 @@ def probe():
         raise Exception('No suitable video driver found!')
         
     size = (pygame.display.Info().current_w, pygame.display.Info().current_h)
-    print("Framebuffer size: %d x %d" % (size[0], size[1]))
+    logging.debug("Framebuffer size: %d x %d" % (size[0], size[1]))
     
     screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
         

@@ -1,3 +1,4 @@
+import logging
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 class H(BaseHTTPRequestHandler):
@@ -34,8 +35,8 @@ class H(BaseHTTPRequestHandler):
 def run(scoreboard, args):
     H.scoreboard = scoreboard
     if args.http_server:
-        print("Web Server running on port: {0}".format(args.http_port))
+        logging.info("Web Server running on port: {}".format(args.http_port))
         httpd = HTTPServer(('', args.http_port), H)
         httpd.serve_forever()
     else:
-        print("Web Server not running.")
+        logging.info("Web Server not running.")
