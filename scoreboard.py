@@ -1,4 +1,5 @@
-import math, pygame, shapes, scoring, rasppi
+import math, pygame, shapes, scoring
+import raspi.gpio
 
 class GameStates:
     NORMAL = 0
@@ -12,7 +13,7 @@ class GameStates:
 class Scoreboard():
     def __init__(self, args):
         # Initialize raspberry pi functions if available.
-        self.pi = rasppi.RaspPi()
+        self.pi = raspi.gpio.RaspPi()
 
         self.LeftScore = 0
         self.RightScore = 0

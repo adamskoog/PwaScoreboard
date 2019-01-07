@@ -1,4 +1,5 @@
-import pygame, sound
+import pygame
+import raspi.sound as sound
 
 class RaspPi(object):
     
