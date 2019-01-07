@@ -70,6 +70,7 @@ def parse_arguments(_args):
     parser.add_argument("-f", "--logpath", help="The path to store the log file.")
     parser.add_argument("--probe", help="For use on Raspberry PI, probes system for GPU.", action="store_true")
     parser.add_argument("--http-server", help="Enable use of http server.", action="store_true", default=False)
+    parser.add_argument("--http-host", help="Override the default http host: localhost", default="localhost")
     parser.add_argument("--http-port", help="Override the default http port: 1337", type=int, default=1337)
 
     args = parser.parse_args(_args)
@@ -98,7 +99,7 @@ def init_logging(args):
 
 def main(_args):
     import scoreboard as sb
-    import server, _thread
+    from web.server import Server
 
     # Parse Command Arguments
     args = parse_arguments(_args)
@@ -109,8 +110,9 @@ def main(_args):
     # Create the scoreboard object.
     scoreboard = sb.Scoreboard(args)
 
-    # Stand up a small HTTP server for remote control
-    _thread.start_new_thread(server.run, (scoreboard,args))
+    # Stand up a small HTTP server for remote control (if enabled)
+    webserver = Server(scoreboard, args)
+    webserver.start()
 
     # Start up game loop
     game = Game(args)

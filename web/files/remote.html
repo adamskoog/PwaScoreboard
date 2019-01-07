@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Ping-Pong Remote</title>
+    </head>
+    <body>        
+        <button onclick="reset()" type="button">Reset Score</button>
+        <button onclick="addleft()" type="button">+1 Left</button>
+        <button onclick="addright()" type="button">+1 Right</button>
+
+        <script type="text/javascript">
+            function reset() {
+                var xhr = new XMLHttpRequest()
+
+                xhr.open("POST", "./reset", true);
+                xhr.setRequestHeader('Content-Type', 'text/plain');
+                xhr.send();
+            }
+            function addleft() {
+                var xhr = new XMLHttpRequest()
+
+                xhr.open("POST", "./score/left", true);
+                xhr.setRequestHeader('Content-Type', 'text/plain');
+                xhr.send();
+            }
+            function addright() {
+                var xhr = new XMLHttpRequest()
+
+                xhr.open("POST", "./score/right", true);
+                xhr.setRequestHeader('Content-Type', 'text/plain');
+                xhr.send();
+            }
+        </script>
+    </body>
+</html>
