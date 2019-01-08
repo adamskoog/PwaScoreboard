@@ -25,28 +25,42 @@ class Server:
             logging.info("Web Server not running.")
 
     # The stop is something that doesn't seem to be needed to implement. The thread will be
-    # termininated 2 seconds after the parent thread is destoryed.
+    # terminated 2 seconds after the parent thread is destroyed.
     def stop(self):
         pass
 
     def initialize(self):
         self._app.route("/", "GET", self.remote)
-        self._app.route("/score/left", "POST", self.scoreleft)
-        self._app.route("/score/right", "POST", self.scoreright)
+        self._app.route("/score", "GET", self.scoreInfo)
+        self._app.route("/score/left/add", "POST", self.scoreLeft)
+        self._app.route("/score/left/remove", "POST", self.removeScoreLeft)
+        self._app.route("/score/right/add", "POST", self.scoreRight)
+        self._app.route("/score/right/remove", "POST", self.removeScoreRight)
         self._app.route("/reset", "POST", self.reset)
 
     # Below are functions for routing of requests
     def remote(self):
         return static_file("remote.html", root="./web/files/")
 
-    def scoreleft(self):
+    def scoreInfo(self):
+        return { "left": self.scoreboard.LeftScore, "right": self.scoreboard.RightScore }
+
+    def scoreLeft(self):
         self.scoreboard.AddLeftScore()
         return { "left": self.scoreboard.LeftScore, "right": self.scoreboard.RightScore }
 
-    def scoreright(self):
+    def removeScoreLeft(self):
+        self.scoreboard.SubtractLeftScore()
+        return { "left": self.scoreboard.LeftScore, "right": self.scoreboard.RightScore }
+
+    def scoreRight(self):
         self.scoreboard.AddRightScore()
+        return { "left": self.scoreboard.LeftScore, "right": self.scoreboard.RightScore }
+
+    def removeScoreRight(self):
+        self.scoreboard.SubtractRightScore()
         return { "left": self.scoreboard.LeftScore, "right": self.scoreboard.RightScore }
 
     def reset(self):
         self.scoreboard.Reset()
-        return { "left": 0, "right": 0 }
+        return { "left": self.scoreboard.LeftScore, "right": self.scoreboard.RightScore }

@@ -2,11 +2,34 @@
 <html>
     <head>
         <title>Ping-Pong Remote</title>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+        <style>
+            .container-fluid .row {
+                margin-top: 30px;
+            }
+        </style>
     </head>
-    <body>        
-        <button onclick="reset()" type="button">Reset Score</button>
-        <button onclick="addleft()" type="button">+1 Left</button>
-        <button onclick="addright()" type="button">+1 Right</button>
+    <body>
+        <div class="container-fluid" style="text-align: center;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2>Ping-Pong Remote</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <button class="btn btn-dark" style="width:90px;" onclick="addleft()" type="button">+1 Left</button>
+                    <button class="btn btn-dark" style="width:90px;" onclick="addright()" type="button">+1 Right</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <button class="btn btn-dark" style="width:140px;" onclick="reset()" type="button">Reset Score</button>
+                </div>
+            </div>
+        </div>
 
         <script type="text/javascript">
             function reset() {
@@ -19,14 +42,14 @@
             function addleft() {
                 var xhr = new XMLHttpRequest()
 
-                xhr.open("POST", "./score/left", true);
+                xhr.open("POST", "./score/left/add", true);
                 xhr.setRequestHeader('Content-Type', 'text/plain');
                 xhr.send();
             }
             function addright() {
                 var xhr = new XMLHttpRequest()
 
-                xhr.open("POST", "./score/right", true);
+                xhr.open("POST", "./score/right/add", true);
                 xhr.setRequestHeader('Content-Type', 'text/plain');
                 xhr.send();
             }
