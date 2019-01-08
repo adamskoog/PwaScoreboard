@@ -1,63 +1,4 @@
-import pygame
-import logging, logging.handlers
-
-class Game:
-    def __init__(self, args):
-        self.args = args
-
-        self.size = self.width, self.height = args.screen_width, args.screen_height
-
-        # Initialize Game Engine
-        pygame.init()
-
-        # Initialize Game Fonts
-        pygame.font.init()
-
-        if args.probe:
-            # Try to run directly on a framebuffer (PI)
-            self.screen = pyscope.probe()
-        else:
-            # Initialize the game engine in windowed mode (Windows)
-            pygame.init()
-            self.screen = pygame.display.set_mode(self.size)
-            pygame.display.set_caption(args.caption)
-
-        self.running = True
- 
-    def event(self, event):
-
-        if event.type == pygame.QUIT:
-            self.running = False
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_DOWN:
-                self.scoreboard.Reset()
-            elif event.key == pygame.K_LEFT:
-                self.scoreboard.AddLeftScore()
-            elif event.key == pygame.K_RIGHT:
-                self.scoreboard.AddRightScore()
-            elif event.key == pygame.K_q:
-                self.running = False
-        
-    def loop(self):
-        # Allow pygame to do internal events and processing with the OS
-        pygame.event.pump()
-
-    def render(self):
-        self.scoreboard.Draw()
-
-    def cleanup(self):
-        pygame.quit()
- 
-    def execute(self, scoreboard):
- 
-        self.scoreboard = scoreboard
-
-        while( self.running ):
-            for event in pygame.event.get():
-                self.event(event)
-            self.loop()
-            self.render()
-        self.cleanup()
+import pygame, logging
 
 def parse_arguments(_args):
     import argparse, util
@@ -83,6 +24,8 @@ def parse_arguments(_args):
     return args   
 
 def init_logging(args):
+    import logging.handlers
+
     rootLogger = logging.getLogger()
     rootLogger.setLevel(getattr(logging, args.loglevel.upper(), None))
 
@@ -96,9 +39,11 @@ def init_logging(args):
         rootLogger.addHandler(fileHandler)
 
     logging.debug("Logging Initialized")
+    logging.debug("Command Arguments: {}".format(args))
 
 def main(_args):
-    import scoreboard as sb
+    from game.runner import Runner
+    from game.scoreboard import Scoreboard
     from web.server import Server
 
     # Parse Command Arguments
@@ -108,15 +53,15 @@ def main(_args):
     init_logging(args)
 
     # Create the scoreboard object.
-    scoreboard = sb.Scoreboard(args)
+    scoreboard = Scoreboard(args)
 
     # Stand up a small HTTP server for remote control (if enabled)
     webserver = Server(scoreboard, args)
     webserver.start()
 
     # Start up game loop
-    game = Game(args)
-    game.execute(scoreboard)
+    runner = Runner(args)
+    runner.execute(scoreboard)
 
 if __name__ == "__main__":
     import sys    

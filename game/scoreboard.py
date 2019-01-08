@@ -1,4 +1,6 @@
-import math, pygame, shapes, scoring
+import math, pygame
+import game.shapes as shapes
+import game.scoring as scoring
 import raspi.gpio
 
 class GameStates:
