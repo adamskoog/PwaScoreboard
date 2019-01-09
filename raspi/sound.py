@@ -1,6 +1,7 @@
 import time
 
 class Sound():
+    
     def __init__(self, buzzerPort):
 
         self.GPIO = None

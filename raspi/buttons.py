@@ -1,7 +1,6 @@
 import pygame
-import raspi.sound as sound
 
-class RaspPi(object):
+class Buttons(object):
     
     def __init__(self):
 
@@ -29,9 +28,6 @@ class RaspPi(object):
             GPIO.add_event_detect(self.BUTTON_P1, GPIO.FALLING, callback=self.button_callback, bouncetime=1000)
             GPIO.add_event_detect(self.BUTTON_P2, GPIO.FALLING, callback=self.button_callback, bouncetime=1000)
             GPIO.add_event_detect(self.BUTTON_RESET, GPIO.FALLING, callback=self.button_callback, bouncetime=1000)
-
-        # Create the sound object
-        self.sound = sound.Sound(self.BUZZER)
 
     def button_callback(self, channel):
         if channel == self.BUTTON_P1:

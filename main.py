@@ -42,9 +42,8 @@ def init_logging(args):
     logging.debug("Command Arguments: {}".format(args))
 
 def main(_args):
-    from game.runner import Runner
-    from game.scoreboard import Scoreboard
-    from web.server import Server
+    from game import Runner, Scoreboard
+    from web import Server
 
     # Parse Command Arguments
     args = parse_arguments(_args)

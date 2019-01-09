@@ -1,7 +1,5 @@
-import math, pygame
-import game.shapes as shapes
-import game.scoring as scoring
-import raspi.gpio
+import math, pygame, shapes, scoring
+from raspi import Buttons, Sound
 
 class GameStates:
     NORMAL = 0
@@ -15,7 +13,10 @@ class GameStates:
 class Scoreboard():
     def __init__(self, args):
         # Initialize raspberry pi functions if available.
-        self.pi = raspi.gpio.RaspPi()
+        self._buttons = Buttons()
+
+        # Create the sound object
+        self.sound = Sound(self._buttons.BUZZER)
 
         self.LeftScore = 0
         self.RightScore = 0
@@ -26,22 +27,22 @@ class Scoreboard():
     def AddLeftScore(self):
         if self.GameState < GameStates.GAME_OVER:
             self.LeftScore += 1
-            self.pi.sound.LeftScore()
+            self.sound.LeftScore()
         
     def AddRightScore(self):
         if self.GameState < GameStates.GAME_OVER:
             self.RightScore += 1
-            self.pi.sound.RightScore()
+            self.sound.RightScore()
         
     def SubtractLeftScore(self):
         if self.GameState < GameStates.GAME_OVER and self.LeftScore > 0:
             self.LeftScore -= 1
-            self.pi.sound.LeftScore()
+            self.sound.LeftScore()
             
     def SubtractRightScore(self):
         if self.GameState < GameStates.GAME_OVER and self.RightScore > 0:
             self.RightScore -= 1
-            self.pi.sound.RightScore()
+            self.sound.RightScore()
              
     def CheckScore(self):
         if (self.LeftScore == self.RightScore) and (self.RightScore >= self.TargetScore - 1):
@@ -55,7 +56,7 @@ class Scoreboard():
 
             # Play winner sound if game is over
             if not self.PlayedWinnerSound:
-                self.pi.sound.Winner()
+                self.sound.Winner()
                 self.playedWinnerSound = True
 
         elif (self.RightScore >= self.TargetScore) and (self.RightScore >= (self.LeftScore + 2)):
@@ -63,7 +64,7 @@ class Scoreboard():
 
             # Play winner sound if game is over
             if not self.PlayedWinnerSound:
-                self.pi.sound.Winner()
+                self.sound.Winner()
                 self.playedWinnerSound = True
 
     def Reset(self):
@@ -72,7 +73,7 @@ class Scoreboard():
         self.GameState = GameStates.NORMAL
 
         self.PlayedWinnerSound = False
-        self.pi.sound.Reset()
+        self.sound.Reset()
         
     def Draw(self):
 

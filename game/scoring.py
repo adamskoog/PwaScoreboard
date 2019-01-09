@@ -1,5 +1,4 @@
-import pygame
-import game.shapes as shapes
+import pygame, shapes
 
 def drawNumber(number, screen, x, y, w, h):
     strNumber = "00"
