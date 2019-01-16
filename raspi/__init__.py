@@ -1,2 +1,2 @@
-from buttons import Buttons
-from sound import Sound
+from raspi.buttons import Buttons
+from raspi.sound import Sound

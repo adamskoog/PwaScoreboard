@@ -1,4 +1,4 @@
-import pygame, logging, pyscope
+import pygame, logging, game.pyscope
 
 class Runner:
     def __init__(self, args):

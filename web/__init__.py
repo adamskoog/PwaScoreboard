@@ -1,1 +1,1 @@
-from server import Server
+from web.server import Server

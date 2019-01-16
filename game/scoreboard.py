@@ -1,4 +1,6 @@
-import math, pygame, shapes, scoring
+import math, pygame
+import game.shapes as shapes
+import game.scoring as scoring
 from raspi import Buttons, Sound
 
 class GameStates:
